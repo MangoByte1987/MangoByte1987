@@ -1,0 +1,46 @@
+This need to be run before we start orderbook server
+C:\Program Files\Java\jdk1.8.0_221\bin>set CLASSPATH=E:\MatchingEngine\orderbook-server\target\classes;E:\MatchingEngine\orderbook-utility\target\classes
+C:\Program Files\Java\jdk1.8.0_221\bin>rmiregistry -J-Djava.rmi.server.codebase=file:/E:\\MatchingEngine\\orderbook-server\\target\\classes\\/;E:\\MatchingEngine\\orderbook-utility\\target\\classes\\/
+
+===
+##How to run:
+The project is uses Java 1.8 and Maven and rmiregistry, make sure they are present by running:
+
+###Compiling
+Define the env variable ROOT (for every console window), pointing to MatchingEngine directory
+
+`$> export ROOT="<path_to MatchingEngine directory>"`
+Once in "$ROOT"
+`$> mvn clean install`
+
+We will need at least 3 console windows open for this when running local server & clients. (start rmiregistry on diff console as mentioned above )
+For conviniency in unix host  use the scripts  `server.sh` `client-joe.sh` `client-pete.sh` all in different console windows will provide a server and 2 valid clients for live testing.
+
+### 3 - Client
+We support many clients running concurrently
+===
+##Trading
+###Placing Orders
+Clients prompt you to enter a transaction in the following single-line format:
+`SECURITY=ABC QTY=500 PRICE=430.0 SIDE=BUY`
+	SECURITY: The security that you want to trade.
+	QTY: The number of units for that security that you want to place.
+	PRICE: The limit value.
+	SIDE: buy/sell supported for now .
+
+####Note: A client is not allowed to buy and sell the same security.
+This is a design decison made to allow the matching algorithm to be general for buy & sell side.
+
+###Listing Orders
+Client's transaction log can be accessed through.
+`LIST`
+		It shows a Transaction log for that client, meaning all matches (buy & sell) that happened over the session for that current client.
+		 This would be something the client can have access to, since it's their own transactions and can't affect the market in any way.
+		Aditionally ,It trirggers a dump of the server's (on it's console) book to inspect it's internal state.
+		 This is for debugging purposes and would never be something the client can see.
+
+## Tests
+An OrderBook has several rules that it needs to apply, 
+for that reason there are [Unit Tests](orderbook-server/src/test/java/com/example/orderbook/OrderBookServiceTest.java)
+the comments should aid to understand the behavior expected for this service.
+Given that the project is client-server we only test our PriorityOrderBook where the logic rules are actually enforced.

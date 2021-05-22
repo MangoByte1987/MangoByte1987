@@ -1,0 +1,93 @@
+==============Evidece for case mentioned in mail================
+Client 1 :
+
+E:\MatchingEngine>java -jar orderbook-client/target/orderbook-client-1.0-SNAPSHOT.jar CLIENT=TEST1
+Using:
+HOSTNAME=localhost
+PORT=1099
+SERVICE=OrderBookService
+START=2020-03-08 16:13:08
+END=never
+CLIENT=TEST1
+Enter your command(s) separated by a new line (return key):
+SECURITY=ABD QTY=100 PRICE=20.30 SIDE=SELL
+SECURITY=ABD QTY=100 PRICE=20.25 SIDE=SELL
+SECURITY=ABD QTY=200 PRICE=20.30 SIDE=SELL
+TEST1-> Order matched!  security: ABD you got $20.25 each unit, for a total quantity of: 100. At 2020-03-08 16:13:52
+TEST1-> Order matched!  security: ABD you got $20.3 each unit, for a total quantity of: 100. At 2020-03-08 16:13:52
+TEST1-> Order matched!  security: ABD you got $20.3 each unit, for a total quantity of: 50. At 2020-03-08 16:13:52
+list
+=============BEGIN==============
+=== Server state - All current orders ===
+ORDERID=2 CLIENT=TEST1 SECURITY=ABD QTY=150 PRICE=20.3 SIDE=SELL, TIMESTAMP=2020-03-08 16:13:29
+
+
+===  Client state - All orders for the day ===
+TEST1-> Order matched!  security: ABD you got $20.25 each unit, for a total quantity of: 100. At 2020-03-08 16:13:52
+TEST1-> Order matched!  security: ABD you got $20.3 each unit, for a total quantity of: 100. At 2020-03-08 16:13:52
+TEST1-> Order matched!  security: ABD you got $20.3 each unit, for a total quantity of: 50. At 2020-03-08 16:13:52
+=============END==============
+
+Client 2 :
+E:\MatchingEngine>java -jar orderbook-client/target/orderbook-client-1.0-SNAPSHOT.jar CLIENT=TEST2
+Using:
+HOSTNAME=localhost
+PORT=1099
+SERVICE=OrderBookService
+START=2020-03-08 16:12:24
+END=never
+CLIENT=TEST2
+Enter your command(s) separated by a new line (return key):
+SECURITY=ABD QTY=250 PRICE=20.35 SIDE=BUY
+TEST2-> Order matched!  security: ABD you paid $20.25 each unit, for a total quantity of: 100. At 2020-03-08 16:13:52
+TEST2-> Order matched!  security: ABD you paid $20.3 each unit, for a total quantity of: 100. At 2020-03-08 16:13:52
+TEST2-> Order matched!  security: ABD you paid $20.3 each unit, for a total quantity of: 50. At 2020-03-08 16:13:52
+list
+=============BEGIN==============
+=== Server state - All current orders ===
+ORDERID=2 CLIENT=TEST1 SECURITY=ABD QTY=150 PRICE=20.3 SIDE=SELL, TIMESTAMP=2020-03-08 16:13:29
+
+
+===  Client state - All orders for the day ===
+TEST2-> Order matched!  security: ABD you paid $20.25 each unit, for a total quantity of: 100. At 2020-03-08 16:13:52
+TEST2-> Order matched!  security: ABD you paid $20.3 each unit, for a total quantity of: 100. At 2020-03-08 16:13:52
+TEST2-> Order matched!  security: ABD you paid $20.3 each unit, for a total quantity of: 50. At 2020-03-08 16:13:52
+=============END==============
+
+Server:
+
+E:\MatchingEngine>java -jar orderbook-server/target/orderbook-server-1.0-SNAPSHOT.jar
+Using:
+HOSTNAME=localhost
+PORT=1099
+SERVICE=OrderBookService
+START=2020-03-08 16:12:08
+END=never
+Not sleeping
+Servant init
+Service bound
+Session ends at: never
+Date must be formatted in this way: yyyy-MM-dd HH:mm:ss
+Running forever
+Client TEST1 has exited. We remove his orders.
+Booking...
+ORDERID=0 CLIENT=TEST1 SECURITY=ABD QTY=100 PRICE=20.3 SIDE=SELL, TIMESTAMP=2020-03-08 16:13:13
+Booking...
+ORDERID=1 CLIENT=TEST1 SECURITY=ABD QTY=100 PRICE=20.25 SIDE=SELL, TIMESTAMP=2020-03-08 16:13:20
+Booking...
+ORDERID=2 CLIENT=TEST1 SECURITY=ABD QTY=200 PRICE=20.3 SIDE=SELL, TIMESTAMP=2020-03-08 16:13:29
+Booking...
+ORDERID=3 CLIENT=TEST2 SECURITY=ABD QTY=0 PRICE=20.35 SIDE=BUY, TIMESTAMP=2020-03-08 16:13:52
+
+Client TEST1 has exited. We remove his orders.
+Client TEST2 has exited. We remove his orders.
+The server had to quit. All pending orders will be cancelled
+Finishing: ========START==========
+BUYING:
+SELLING:
+========END==========
+
+
+
+
+

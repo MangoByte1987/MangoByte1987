@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="orderbook-client" />
+        <module name="orderbook-server" />
+        <module name="orderbook-utility" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="orderbook-client" target="1.8" />
+      <module name="orderbook-parent" target="1.8" />
+      <module name="orderbook-server" target="1.8" />
+      <module name="orderbook-utility" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
